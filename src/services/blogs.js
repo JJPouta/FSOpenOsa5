@@ -15,8 +15,8 @@ const getAll = () => {
 const createNew = async (newBlog) => {
 
   const config = {headers: {Authorization: token}}
-  console.log("about to transfer")
-  const res = await axios.post(baseUrl, newBlog, config)
-  return res
+  const response = await axios.post(baseUrl, newBlog, config)
+  return response.data
 }
+
 export default { getAll,setToken,createNew}

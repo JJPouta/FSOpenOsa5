@@ -6,7 +6,7 @@ const LoginForm = ({loginFunction,usernameFunction,passwordFunction}) => {
 return(
 <div>
     <h2>Insert credentials to log in</h2>
-    <form onSubmit={() => loginFunction()}>
+    <form onSubmit={loginFunction}>
         <div>
             <div style={{margin: '10px'}}>
                 <label style={{display: 'inline-block',width:'100px'}}>Username</label>

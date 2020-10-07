@@ -5,7 +5,7 @@ import LoginForm from './components/LoginForm'
 import loginService from './services/login' 
 import BlogCreatorForm from './components/CreationForm'
 const NotificationBar = (props) => {
-  
+  console.log(props)
   return(<div>
     {props.user !== null && <p>User {props.user.name} logged in <button onClick={() => props.logoutfunc()}>Logout</button></p>}
     {props.type === "Error" && <p style={{color: 'red',border: '1px solid red'}}>Invalid login credentials</p>}
@@ -46,6 +46,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exp) {
+      console.log('örf')
       setInfoMessage("Error")
       setTimeout(() => {
         setInfoMessage(null)
@@ -74,12 +75,15 @@ const App = () => {
     }
 
   }
-  const createBlog = async () => {
 
-    const res = await blogService.createNew(newBlog)
-    console.log(res)
-    setInfoMessage("BlogAdded")
-    setNewBlog(null)
+  const createBlog = async (e) => {
+    e.preventDefault()
+    await blogService.createNew(newBlog)
+    setInfoMessage('BlogAdded')
+    setTimeout(() => {
+      setInfoMessage(null)
+      setNewBlog(null)
+    }, 3000)
   }
 
   useEffect(() => {
