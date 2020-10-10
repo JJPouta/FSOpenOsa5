@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import LoginForm from './components/LoginForm'
+import Togglable from './components/Togglable'
 import loginService from './services/login' 
 import BlogCreatorForm from './components/CreationForm'
 const NotificationBar = (props) => {
-  console.log(props)
   return(<div>
     {props.user !== null && <p>User {props.user.name} logged in <button onClick={() => props.logoutfunc()}>Logout</button></p>}
     {props.type === "Error" && <p style={{color: 'red',border: '1px solid red'}}>Invalid login credentials</p>}
@@ -107,7 +107,11 @@ const App = () => {
       {(currUser !== null || infoMessage !== null) && <NotificationBar user={currUser} type={infoMessage} blog={newBlog} logoutfunc={logOut}/>}
       {currUser === null && 
       <LoginForm loginFunction={handleLogin} usernameFunction={setUsername} passwordFunction={setPassword}/>}
-      {currUser  !== null && <BlogCreatorForm changeValue={blogBuilder} blogCreateFunction={createBlog}/>}
+    {currUser !== null &&
+      <Togglable>
+        <BlogCreatorForm changeValue={blogBuilder} blogCreateFunction={createBlog}/>
+      </Togglable>
+      }
       {currUser !== null &&
       blogs.map(blog =>
         <Blog key={blog.id} blog={blog}/>)}
