@@ -22,7 +22,7 @@ const App = () => {
 
     window.localStorage.removeItem('blogAppUser')
     setCurrUser(null)
-    console.log("user logged out")
+    console.log('user logged out')
   }
   
   const handleLogin = async (event) => {
@@ -42,7 +42,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exp) {
-      setInfoMessage({type: "Error"})
+      setInfoMessage({type: 'Error'})
       setTimeout(() => {
         setInfoMessage(null)
       }, 3000)
@@ -70,7 +70,7 @@ const App = () => {
       {(currUser !== null || infoMessage !== null) && <NotificationBar user={currUser} message={infoMessage} logoutfunc={logOut}/>}
       {currUser === null && 
       <LoginForm loginFunction={handleLogin} usernameFunction={setUsername} passwordFunction={setPassword}/>}
-    {currUser !== null &&
+      {currUser !== null &&
       <Togglable>
         <BlogCreatorForm infoMSgFunction={setInfoMessage}/>
       </Togglable>
