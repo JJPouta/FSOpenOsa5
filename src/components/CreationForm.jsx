@@ -22,18 +22,21 @@ const BlogCreatorForm = ({infoMSgFunction}) => {
     switch (id) {
     case 'newBlogTitle':
       setNewBlog({...newBlog,
-        title: value})
+        title: value,
+        likes: 0})
       break;
     case 'newBlogAuthor':
       setNewBlog({...newBlog,
-        author: value})
+        author: value,
+        likes: 0})
       break;
     case 'newBlogURL':
       setNewBlog({...newBlog,
-        url: value})
+        url: value,
+        likes: 0})
       break;
     }
-
+   
   }
   return(
     <div>
