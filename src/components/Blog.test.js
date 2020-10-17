@@ -13,53 +13,52 @@ const blogObject = {
   user: {id: '5555s'}
 }
 
-console.log(blogObject)
-// //5.13
-// test('blogcontent tests, must contain', () => {
+//5.13
+test('blogcontent tests, must contain', () => {
   
 
-//   const component = render(
-//     <Blog blog={blogObject} />
-//   )
+  const component = render(
+    <Blog blog={blogObject} />
+  )
 
-//   const smallBlogBlock = component.container.querySelector('.BlogInfo')
-//   // Nämä pitää olla
-//   expect(smallBlogBlock).toHaveTextContent('TestBlogObject')
-//   expect(smallBlogBlock).toHaveTextContent('Testman 44')
+  const smallBlogBlock = component.container.querySelector('.BlogInfo')
+  // Nämä pitää olla
+  expect(smallBlogBlock).toHaveTextContent('TestBlogObject')
+  expect(smallBlogBlock).toHaveTextContent('Testman 44')
   
-// })
+})
 
 
 // // 5.13
-// test('blogcontent tests: must not contain -> fail', () => {
+test('blogcontent tests: must not contain -> fail', () => {
   
-//   const component = render(
-//     <Blog blog={blogObject} />
-//   )
+  const component = render(
+    <Blog blog={blogObject} />
+  )
 
-//   const smallBlogBlock = component.container.querySelector('.BlogInfo')
+  const smallBlogBlock = component.container.querySelector('.BlogInfo')
 
-//   // Näitä ei saa olla
-//   expect(smallBlogBlock).toHaveTextContent('www.test.nz')
-//   expect(smallBlogBlock).toHaveTextContent('4455')
+  // Näitä ei saa olla
+  expect(smallBlogBlock).toHaveTextContent('www.test.nz')
+  expect(smallBlogBlock).toHaveTextContent('4455')
   
-// })
+})
   
 // // 5.14
-// test('button click for full Blog info', () => {
+test('button click for full Blog info', () => {
 
 
-//   const component = render(
-//     <Blog blog={blogObject}/>)
+  const component = render(
+    <Blog blog={blogObject}/>)
 
-//   const button = component.getByText('View')
-//   fireEvent.click(button)
+  const button = component.getByText('View')
+  fireEvent.click(button)
 
-//   const LargeBlogBlock = component.container.querySelector('.LargeBlogInfo')
+  const LargeBlogBlock = component.container.querySelector('.LargeBlogInfo')
 
-//   expect(LargeBlogBlock).toHaveTextContent('www.test.nz')
-//   expect(LargeBlogBlock).toHaveTextContent('4455')
-// })
+  expect(LargeBlogBlock).toHaveTextContent('www.test.nz')
+  expect(LargeBlogBlock).toHaveTextContent('4455')
+})
 
 //5.15
 test('button click for full Blog info', async () => {
@@ -70,14 +69,9 @@ test('button click for full Blog info', async () => {
     <Blog blog={blogObject} updateBlog={mockHandler}/>)
 
     
-  // const LargeBlogBlock = component.container.querySelector('.LargeBlogInfo')
-  
   const button = component.getByText('Like')
   fireEvent.click(button)
   fireEvent.click(button)
-
-  console.log
-
+  
   expect(mockHandler.mock.calls).toHaveLength(2)
- 
 })

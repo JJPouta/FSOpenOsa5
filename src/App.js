@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect} from 'react'
 import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
@@ -15,7 +15,7 @@ const App = () => {
   const [infoMessage, setInfoMessage] = useState(null) 
   const [password, setPassword] = useState('')
   const [currUser, setCurrUser] = useState(null)
-  
+  const [count,setRenderCount] = useState(null)
 
   // Uloskirjautuu sovelluksesta
   const logOut = () => {
@@ -49,6 +49,22 @@ const App = () => {
     }
   }
 
+  const updateBlog = async (blog) => {
+
+    console.log('called')
+    const user = blog.user.id
+    
+    const newBlogContent = {...blog,
+      likes: blog.likes += 1,
+      user: user
+    }
+    
+    await blogService.updateBlog(newBlogContent.id,newBlogContent)
+
+    setRenderCount(() => count + 1)
+  }
+
+
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
@@ -77,7 +93,7 @@ const App = () => {
       }
       {currUser !== null &&
       blogs.map(blog =>
-        <Blog key={blog.id} blog={blog}/>)}
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>)}
     </div>
   )
 }
