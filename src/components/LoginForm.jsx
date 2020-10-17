@@ -16,13 +16,13 @@ const LoginForm = ({loginFunction,usernameFunction,passwordFunction}) => {
         <div>
           <div style={{margin: '10px'}}>
             <label style={{display: 'inline-block',width:'100px'}}>Username</label>
-            <input onChange={({ target }) => usernameFunction(target.value)} type="text" placeholder="Input your username"></input>
+            <input id='unameInput' onChange={({ target }) => usernameFunction(target.value)} type="text" placeholder="Input your username"></input>
           </div>
           <div style={{margin: '10px'}}>
             <label style={{display: 'inline-block',width:'100px'}}>Password</label>
-            <input onChange={({ target }) => passwordFunction(target.value)} type="text" placeholder="Input your password"></input>
+            <input id='pwdInput' onChange={({ target }) => passwordFunction(target.value)} type="text" placeholder="Input your password"></input>
           </div>
-          <button style={{width:'80px',backgroundColor: 'blue',color:'white'}} type="submit">Login</button>
+          <button id='loginBtn' style={{width:'80px',backgroundColor: 'blue',color:'white'}} type="submit">Login</button>
         </div>
       </form>
     </div>)
