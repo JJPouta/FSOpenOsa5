@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import blogService from '../services/blogs'
 
-const BlogCreatorForm = ({infoMSgFunction}) => {
+const BlogCreatorForm = ({infoMSgFunction,bloglistReload}) => {
 
   const [newBlog,setNewBlog] = useState(null) 
     
@@ -14,6 +14,7 @@ const BlogCreatorForm = ({infoMSgFunction}) => {
       infoMSgFunction(null)
       setNewBlog(null)
     }, 3000)
+    bloglistReload()
   }
     
   const blogBuilder = (value,id) => {

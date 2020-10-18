@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 
 
-const Blog = ({ blog,updateBlog }) => {
+const Blog = ({ blog,updateBlog,removeBlogById}) => {
 
   const [visible,setVisible] = useState(false)
   
@@ -14,7 +14,15 @@ const Blog = ({ blog,updateBlog }) => {
     setVisible(!visible)
   }
   
+  const blogRemoval = () => {
 
+    const remove = window.confirm(`Remove blog: ${blog.title} by ${blog.author}`)
+    
+    if(remove)
+    {
+      removeBlogById(blog.id)
+    }
+  }
 
   return(
     <div>
@@ -26,6 +34,7 @@ const Blog = ({ blog,updateBlog }) => {
         <p><b>URL:</b>{blog.url}</p>
         <p><b>Tykkäykset:</b>{blog.likes}<button onClick={() => updateBlog(blog)} className='LikeBtns'>Like</button></p>
         <p><b>Kirjoittaja:</b>{blog.author}</p>
+        <p><button className='RemoveBtns' onClick={blogRemoval}>Remove</button></p>
       </div>  
     </div>)
 }

@@ -15,7 +15,8 @@ const App = () => {
   const [infoMessage, setInfoMessage] = useState(null) 
   const [password, setPassword] = useState('')
   const [currUser, setCurrUser] = useState(null)
-  const [count,setRenderCount] = useState(null)
+  const [count,setRenderCount] = useState(0)
+  const [blogReload,setBlogReload] = useState(0)
 
   // Uloskirjautuu sovelluksesta
   const logOut = () => {
@@ -49,9 +50,13 @@ const App = () => {
     }
   }
 
-  const updateBlog = async (blog) => {
+  const reloadAfterCreate = () => {
 
-    console.log('called')
+    setBlogReload(() => blogReload + 1)
+    
+  }
+    const updateBlog = async (blog) => {
+
     const user = blog.user.id
     
     const newBlogContent = {...blog,
@@ -64,12 +69,23 @@ const App = () => {
     setRenderCount(() => count + 1)
   }
 
+  const removeBlog = async (id) => {
+
+    await blogService.deleteBlog(id)
+
+    setBlogReload(() => blogReload + 1)
+   
+  }
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
+    blogService.getAll().then(blogs => {
+      
+      // Sortataan blogit likejen mukaiseen järjestykseen suurimmasta pienempään
+      const sortedBlogs = blogs.sort((a,b) => {return b.likes - a.likes})
+      
+      setBlogs(sortedBlogs)}
     )  
-  }, [])
+  }, [blogReload])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('blogAppUser')
@@ -88,12 +104,12 @@ const App = () => {
       <LoginForm loginFunction={handleLogin} usernameFunction={setUsername} passwordFunction={setPassword}/>}
       {currUser !== null &&
       <Togglable>
-        <BlogCreatorForm infoMSgFunction={setInfoMessage}/>
+        <BlogCreatorForm infoMSgFunction={setInfoMessage} bloglistReload={reloadAfterCreate}/>
       </Togglable>
       }
       {currUser !== null &&
       blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>)}
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} removeBlogById={removeBlog}/>)}
     </div>
   )
 }
