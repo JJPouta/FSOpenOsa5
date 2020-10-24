@@ -14,7 +14,7 @@ const Togglable = (props) => {
    
   return(<div>
     <div style={blockHidden}>
-      <button onClick={changeBlockVisibility}>New blog</button>
+      <button id='newBlogBtn' onClick={changeBlockVisibility}>New blog</button>
     </div>
     <div style={blockVisible}>
       {props.children}

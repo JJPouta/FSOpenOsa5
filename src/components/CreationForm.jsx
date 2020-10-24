@@ -56,7 +56,7 @@ const BlogCreatorForm = ({infoMSgFunction,bloglistReload}) => {
             <label style={{display: 'inline-block',width:'100px'}}>URL</label>
             <input onChange={({ target }) => blogBuilder(target.value,target.id)} id="newBlogURL" type="text"></input>
           </div>
-          <button style={{width:'80px',backgroundColor: 'green',color:'white'}} type="submit">Create</button>
+          <button style={{width:'80px',backgroundColor: 'green',color:'white'}} id="submitNewBlogBtn"  type="submit">Create</button>
         </div>
       </form>
     </div>)

@@ -1,6 +1,15 @@
 describe('Blog app', function() {
   beforeEach(function() {
     cy.request('POST', 'http://localhost:3001/api/testing/reset')
+    
+    const testUser = {
+      name: 'Test Man',
+      username: 'testmaan',
+      password: 'cypresstest'
+    }
+
+    cy.request('POST', 'http://localhost:3001/api/users/', testUser) 
+
     cy.visit('http://localhost:3000')
   })
   
@@ -10,8 +19,8 @@ describe('Blog app', function() {
 
   describe('Login',function() {
     it('succeeds with correct credentials', function() {
-      cy.get('#unameInput').type('lossimies')
-      cy.get('#pwdInput').type('pppoo')
+      cy.get('#unameInput').type('testmaan')
+      cy.get('#pwdInput').type('cypresstest')
       cy.get('#loginBtn').click()
     })
 
@@ -25,6 +34,25 @@ describe('Blog app', function() {
     })
   })
 
+  describe.only('When logged in', function() {
+    beforeEach(function() {
+      
+      cy.get('#unameInput').type('testmaan')
+      cy.get('#pwdInput').type('cypresstest')
+      cy.get('#loginBtn').click()
+    })
+
+
+    it('A blog can be created', function() {
+      cy.get('#newBlogBtn').click()
+      cy.get('#newBlogTitle').type('Test blog by Cypress')
+      cy.get('#newBlogAuthor').type('Cy Robo')
+      cy.get('#newBlogURL').type('www.cypress.kz')
+      cy.get('#submitNewBlogBtn').click()
+      
+      cy.contains('Aihe:Test blog by Cypress Kirjoittaja: Cy Robo')
+    })
+  })
 
 })
 
