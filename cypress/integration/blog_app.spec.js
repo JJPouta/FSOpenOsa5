@@ -13,7 +13,7 @@ describe('Blog app', function() {
       author: 'Test Man',
       title: 'TestBlog 5000',
       url: 'www.testurl.kz',
-      likes: 1
+      likes: 5
      
     }
     const testBlogTwo = 
@@ -42,9 +42,12 @@ describe('Blog app', function() {
       cy.get('#unameInput').type('testmaan')
       cy.get('#pwdInput').type('cypresstest')
       cy.get('#loginBtn').click()
+      cy.contains('Create New Blog')
     })
 
     it('fails with wrong credentials', function() {
+     
+      cy.wait(2000)
       cy.get('#unameInput').type('kessila')
       cy.get('#pwdInput').type('xman')
       cy.get('#loginBtn').click()
@@ -94,7 +97,7 @@ describe('Blog app', function() {
     })
 
     // 5.20
-    it('Likebutton does work', function() {
+    it.only('Likebutton does work', function() {
       
       // Odotetaan 2sek, jotta uusi blogi varmasti päivittyy
       cy.wait(2000)
@@ -105,13 +108,13 @@ describe('Blog app', function() {
       // Painetaan Like nappulaa
       cy.get('.LikeBtns').eq(2).click()
 
-      // Viimeisen elementin likejen arvo pitäisi olla 11
+      // Viimeisen elementin likejen arvo pitäisi olla 1
       cy.get('.LikeRows').eq(2).should('contain','1')
       
     })
 
     // 5.21
-    it.only('Blog deletion does work', function(){
+    it('Blog deletion does work', function(){
 
       // Odotetaan 2sek, jotta uusi blogi varmasti päivittyy
       cy.wait(2000)
@@ -123,13 +126,43 @@ describe('Blog app', function() {
       cy.get('.RemoveBtns').eq(2).click()
 
       // Odotetaan 2sek, jotta blogilista päivittyy
-      cy.wait(2000)
+      cy.wait(3000)
 
       // Viimeinen elmentti pitäisi olla kadonnut DOMista
       cy.get('.BlogInfo').eq(2).should('not.exist');
 
     })
-  })
 
+    // 5.22
+    it('Blogs in desc. order based on likes', function(){
+
+      // Odotetaan 2sek, jotta uusi blogi varmasti päivittyy
+      cy.wait(2000)
+
+      cy.get('.LikeRows').eq(0).as('LargestLike')
+      cy.get('.LikeRows').eq(1).as('MidLike')
+      cy.wait(2000)
+      cy.get('.LikeRows').eq(2).as('LowestLike')
+
+      cy.get('@LargestLike').then(($largest) => {
+
+        const highest = parseInt($largest.text().replace(/\D/g, ""))
+
+        cy.get('@MidLike').then(($mid) => {
+
+          const mid = parseInt($mid.text().replace(/\D/g, ""))
+          let compare1 = highest > mid
+          expect(compare1).to.eq(true)
+
+          cy.get('@LowestLike').then(($low) => {
+
+            const lowest = parseInt($low.text().replace(/\D/g, ""))
+            let compare2 = mid > lowest
+            expect(compare2).to.eq(true)
+          })
+        })
+      })
+    })
+  })
 })
 
