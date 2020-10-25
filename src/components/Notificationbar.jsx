@@ -14,7 +14,7 @@ const NotificationBar = (props) => {
   else
   {
     return(<div>
-      {props.user !== null && <p>User {props.user.name} logged in <button onClick={() => props.logoutfunc()}>Logout</button></p>}
+      {props.user !== null && <p>User {props.user.name} logged in <button id="logOutBtn"onClick={() => props.logoutfunc()}>Logout</button></p>}
     </div>)
   }
 }

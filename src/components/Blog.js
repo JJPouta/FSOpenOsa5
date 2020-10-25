@@ -32,7 +32,7 @@ const Blog = ({ blog,updateBlog,removeBlogById}) => {
       <div style={largeBlogVisible} className='LargeBlogInfo'>
         <p><b>Aihe:</b>{blog.title} <button className='HideBtns' onClick={changeBlockVisibility}>Hide</button></p>
         <p><b>URL:</b>{blog.url}</p>
-        <p><b>Tykkäykset:</b>{blog.likes}<button onClick={() => updateBlog(blog)} className='LikeBtns'>Like</button></p>
+        <p className='LikeRows'><b>Tykkäykset:</b>{blog.likes}<button onClick={() => updateBlog(blog)} className='LikeBtns'>Like</button></p>
         <p><b>Kirjoittaja:</b>{blog.author}</p>
         <p><button className='RemoveBtns' onClick={blogRemoval}>Remove</button></p>
       </div>  
